@@ -2,7 +2,6 @@ const express = require('express')
 const camelcaseKeys = require('camelcase-keys')
 const db = require('../db/players')
 const router = express.Router()
-// router.use(express.json())
 
 module.exports = router
 
@@ -13,28 +12,18 @@ router.get('/', (req, res) => {
     .then(player => res.status(200).json(player))
 })
 
-
-
-// //POST /v1/focus
-// router.post('/players', (req, res) => {
-//   console.log('players.js')
-//   db.addPlayers(req.body)
-//   .then(() => {
-//     res.status(201).send()
-//     })
-//   .catch(err => {
-//     res.status(500).send('DATABASE ERROR: ' + err.message)
-//     })
-// })
-
-
-
-// // router.get('/', (req, res) => {
-// //   return db.getFoods()
-// //     .then(camelcaseKeys)
-// //     .then(foods => res.status(200).json(foods))
-// // })
-
-
-
-
+//POST /
+router.post('/', (req,res) => {
+  // let name = req.body.player_name 
+  let name = 'hard-coded' //works
+  console.log(req.body) //empty {}
+  
+  return db.addPlayer(name)
+    .then(() => {
+      res.json({ player_name: name })
+    })
+    .catch(err => {
+      res.status(500).send('DATABASE ERROR: ' + err.message)
+    })
+})
+  

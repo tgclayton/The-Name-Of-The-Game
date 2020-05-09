@@ -16,8 +16,8 @@ class TitleForm extends React.Component {
 
   submitHandler = event => {
     event.preventDefault()
-    addPlayers(this.state)
-    // addPlayers(this.state.championOne)
+    // addPlayers(this.state)
+    addPlayers(this.state.championOne)
     // addPlayers(this.state.championTwo)
   }
 
@@ -55,8 +55,3 @@ class TitleForm extends React.Component {
 }
 
 export default TitleForm
-
-
-{/* <Link to='/Session' >
-<button className='mainButton' >PROCEED</button>
-</Link> */}
