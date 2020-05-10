@@ -11,7 +11,7 @@ class TitleForm extends React.Component {
     this.state = {
       championOne: '',
       championTwo: '',
-      unitNum: 0
+      unitNum: 1 //trial
     }
 
     this.submitHandler = this.submitHandler.bind(this)
@@ -34,7 +34,7 @@ class TitleForm extends React.Component {
   submitHandler = event => {
     event.preventDefault()
     // console.log(this.state.championOne)
-    addPlayer(this.state.championOne)
+    // addPlayer('hey', 9)
       // .then(data => console.log('added to db?: ', data))
   }
 
