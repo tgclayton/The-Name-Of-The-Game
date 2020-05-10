@@ -6,8 +6,8 @@ class Champions extends React.Component {
 
     this.state = {
       champions: [], 
-      championOne: '',
-      championTwo: ''
+      // championOne: '',
+      // championTwo: ''
     }
 
   }
