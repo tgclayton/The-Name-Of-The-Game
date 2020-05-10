@@ -16,31 +16,30 @@ class TitleForm extends React.Component {
   render() {
     return(
       <div className="formBodyBorder">
-      <div className="formBody">
-        <Form>
-            <h3 className="formTitleText">What should the heralds call you?</h3>
-          <Form.Group className="formGroup">
-            <div>
-            <Form.Input
+        <form className="formBody">
+          <h3 className="formTitleText">What should the heralds call you?</h3>
+          <div className="formGroup">
+          <label>Champion One:
+            <input
               label='Champion One'
               placeholder='championOne'
               name='championOne'
               onChange={event => this.setState({championOne: event.target.value })}
-             /></div>
-          </Form.Group>
-          <Form.Group>
-            <Form.Input
+            />
+          </label>
+          <label>Champion Two:
+            <input
               label='Champion Two'
               placeholder='championTwo'
               name='championTwo'
               onChange={event => this.setState({championTwo: event.target.value })}
-             />
-          </Form.Group>
-          <Form.Button onClick={this.submitHandler}>
-            <Link to='/game'>Fight</Link>
-          </Form.Button>
-        </Form>
-      </div>
+            />
+          </label>
+          </div>
+          <button className='fight-btn' onClick={this.submitHandler}>
+            <Link to='/game' className='fight-link'>Fight</Link>
+          </button>
+        </form>
       </div>
     )
   }

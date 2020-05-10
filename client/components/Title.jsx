@@ -1,6 +1,7 @@
 import React from 'react'
 import Description from './Description'
 import TitleForm from './TitleForm'
+import GameHeader from './GameHeader'
 
 class Title extends React.Component {
   render() {

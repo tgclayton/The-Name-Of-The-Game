@@ -12,7 +12,7 @@ class PhaserGame extends Component {
     // const { initialize, game } = this.state
     return (
       <div className='game-container'>
-        <GameHeader />
+          <GameHeader />
         <div className='game'>
           <IonPhaser game={gameFile} initialize={true} />
           <Champions />
