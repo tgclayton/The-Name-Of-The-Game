@@ -21,6 +21,7 @@ class Champions extends React.Component {
         // console.log(data[0].playerName) //get playerName from db data
       )
   }
+  
 render() {
   return(
     <div className='champions'>

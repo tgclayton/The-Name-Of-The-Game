@@ -2,6 +2,7 @@ import React from 'react'
 import { Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 
+
 class TitleForm extends React.Component {
   constructor(props) {
     super(props)
@@ -12,20 +13,24 @@ class TitleForm extends React.Component {
     }
 
     this.submitHandler = this.submitHandler.bind(this)
-    this.handleChampionOne = this.handleChampionOne(this)
-    this.handleChampionTwo = this.handleChampionTwo(this)
+    // this.handleChampionOne = this.handleChampionOne(this)
+    // this.handleChampionTwo = this.handleChampionTwo(this)
   }
 
-  submitHandler = data => {
-    console.log('form data:', data)
-    // event.preventDefault()
-    // // addPlayers(this.state)
-    // addPlayers(this.state.championOne)
-    // // addPlayers(this.state.championTwo)
-    addPlayer('orange')
-      .then(data => console.log(data))
-      .then(champion => conosle.log('champions: ', champion))
+  // submitHandler = data => {
+  //   console.log('form data:', data)
+  //   // event.preventDefault()
+  //   // // addPlayers(this.state)
+  //   // addPlayers(this.state.championOne)
+  //   // // addPlayers(this.state.championTwo)
+  //   addPlayer('orange')
+  //     .then(data => console.log(data))
+  //     .then(champion => conosle.log('champions: ', champion))
 
+  // }
+
+  submitHandler = () => {
+    console.log(this.state.championOne)
   }
 
   handleChampionOne = event => {
@@ -40,6 +45,7 @@ class TitleForm extends React.Component {
     })
   }
 
+  
   render() {
     return(
       <div className="formBodyBorder">
