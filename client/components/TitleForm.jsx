@@ -4,21 +4,33 @@ import { Link } from 'react-router-dom'
 import { addPlayers } from '../api'
 
 class TitleForm extends React.Component {
-  constructor(props) {
-    super(props)
+  // constructor(props) {
+  //   super(props)
 
-    this.state = {
-      championOne: '',
-      championTwo: ''
-    }
-    this.submitHandler = this.submitHandler.bind(this)
-  }
+  //   this.state = {
+  //     champions: [], 
+  //     championOne: '',
+  //     championTwo: ''
+  //   }
+  //   this.submitHandler = this.submitHandler.bind(this)
+  // }
 
-  submitHandler = event => {
-    event.preventDefault()
-    // addPlayers(this.state)
-    addPlayers(this.state.championOne)
-    // addPlayers(this.state.championTwo)
+  // componentDidMount() {
+  //   fetch('/players')
+  //     .then(response => response.json())
+  //     .then(data => 
+  //       this.setState({
+  //         champions: data})
+  //       // console.log(data[0].playerName) //get playerName from db data
+  //     )
+  // }
+
+  submitHandler = data => {
+    console.log('form data:', data)
+    // event.preventDefault()
+    // // addPlayers(this.state)
+    // addPlayers(this.state.championOne)
+    // // addPlayers(this.state.championTwo)
   }
 
   render() {

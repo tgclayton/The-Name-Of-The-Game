@@ -151,3 +151,23 @@ padding: 10px;
   display: flex;
   flex-direction: row;
 }
+
+.champions {
+  background-color: rgb(76, 17, 30);
+  width: 40%;
+  text-align: center;
+}
+
+.game-header {
+  text-align: center;
+}
+
+.game-container {
+
+}
+
+.game {
+  display: flex;
+  flex-direction: row;
+  margin: auto 10%;
+}
