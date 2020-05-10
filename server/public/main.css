@@ -1,0 +1,275 @@
+
+
+body {
+  margin: 0;
+  /* display: flex;
+  justify-content: center; */
+  background-color: black;
+
+}
+
+@font-face {
+  font-family: 'alagard';
+  src: url(assets/font/alagard.ttf);
+  font-style: normal;
+  font-weight: 100;
+}
+
+.home {
+  background-image: url('castle.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  flex-direction: center;
+  width: 2000px;
+  height: 1100px;
+  margin: 0 auto;
+}
+
+
+.descriptionBorder{
+  display: flex;
+  justify-content: center;
+  width: 400px;
+  height: 800px;
+  margin: 10px;
+  background-color: rgba(76, 17, 30, 0.938);
+  padding: 14px;
+  margin-bottom: 20px;
+  margin-top: -5px;
+  margin-left: 100px;
+
+}
+
+.descriptionDiv{
+  display: flex;
+  flex-direction: column;
+
+  width: 400px;
+  height: 100%;
+  padding: 7px;
+  background-color: rgba(76, 17, 30, 0.938);
+  border-color: #FEAD01;
+  border-style: solid;
+  border-width: 2px;
+  
+
+}
+
+
+.descriptionBodyText {
+  color: #FEAD01;
+  text-align: center;
+  font-size: 25px;
+  margin-left: 15px;
+  margin-right: 15px;
+  font-family: alagard;
+
+}
+
+.form {
+  width: 100%;
+}
+
+.formBodyBorder{
+  padding: 15px;
+  background-color: rgba(76, 17, 30, 0.582);
+  height: 230px;
+}
+
+.formBody{
+width: 500px;
+height: 200px;
+background-color: rgb(76, 17, 30);
+border-color: #FEAD01;
+border-width: 2px;
+border-style: solid;
+padding: 10px;
+}
+
+.logoText{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.titleText{
+  color: #FEAD01;
+  font-family: alagard;
+  font-weight: 100;
+  font-size: 60px;
+  margin-bottom: -50px;
+  margin-left: 20px;
+  margin-top: 20px;
+
+}
+
+.titleText2{
+  color: #FEAD01;
+  font-family: alagard;
+  font-weight: 100;
+  font-size: 90px;
+  margin-left: 10px;
+
+}
+
+.formTitleText{
+  color: #FEAD01;
+  font-family: alagard;
+  font-weight: 100;
+  font-size: 30px;
+
+}
+
+.logoTextOne{
+  margin-bottom: -40px;
+}
+
+.logoDiv img{
+  height: 170px;
+  margin-left: 10px;
+}
+
+.logoDiv{
+  display: flex;
+  flex-direction: row;
+}
+
+.horizontalTwo{
+  background-color: #FEAD01;
+  height: 4px;
+  width: 240px;
+  margin-left: 50px;
+  margin-top: -30px;
+  margin-bottom: 50px;
+}
+
+.horizontalOne{
+  background-color: #FEAD01;
+  height: 4px;
+  width: 240px;
+  margin-left: 50px;
+  margin-top: 20px;
+}
+
+.formFlex{
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+}
+
+.formContainerDiv{
+  margin-left: 960px;
+  margin-top: 700px;
+}
+
+.formlabel{
+  font-family: alagard;
+  font-weight: 100;
+  font-size: 25px;
+  color: #FEAD01;
+  margin-right: 10px;
+}
+
+.gameBody{
+  display: flex;
+  width: 2000px;
+  justify-content: center;
+}
+
+.gamePanel{
+  height: 960px;
+  width: 390px;
+  margin: 20px;
+  background-color: rgba(76, 17, 30, 0.938);
+  border: #FEAD01;
+  border-style: solid;
+  border-width: 2px
+}
+
+.gamePanelBorder{
+  max-height: 940px;
+  max-width: 400px;
+  min-height: 940px;
+  min-width: 400px;
+}
+
+.championName{
+  font-family: alagard;
+  color: #FEAD01;
+  font-size: 50px;
+  margin-left: 25px;
+  padding-top: 30px;
+}
+
+.championUnit{
+  font-family: alagard;
+  color: #FEAD01;
+  font-size: 40px;
+  margin-left: 25px;
+}
+
+.championAction{
+  font-family: alagard;
+  color: #FEAD01;
+  font-size: 30px;
+  margin-left: 25px;
+}
+
+.panelHorizontal{
+  width: 300px;
+  height: 3px;
+  margin-left: 40px;
+  background-color: #FEAD01;
+}
+
+.gameDiv{
+  margin-top: 20px;
+}
+
+.endTurn{
+  bottom: 0;
+  font-family: alagard;
+  color: #FEAD01;
+  font-size: 60px;
+  margin-top: 400px;
+  margin-left: 55px;
+}
+
+.button{
+font-family: alagard;
+
+}
+
+
+.endGameButton{
+  display: flex;
+  height: 60px;
+  width: 250px;
+  background-color: rgba(76, 17, 30, 0.938);
+  margin-top: -100px;
+  margin-left: 0 auto;
+  margin-right: 0 auto;
+  justify-content: center;
+  padding-top: 5px;
+  border-style: solid;
+  border-width: 2px;
+  border-color: #FEAD01;
+}
+
+.endGameText{
+   font-family: alagard;
+  color: #FEAD01;
+  font-size: 40px;
+}
+
+.endGameDiv{
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  position: fixed;
+  margin-left: -550px;
+  margin-top: 100px;
+}
