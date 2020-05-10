@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
+import { addPlayer } from '../api'
 
 
 class TitleForm extends React.Component {
@@ -9,7 +10,8 @@ class TitleForm extends React.Component {
 
     this.state = {
       championOne: '',
-      championTwo: ''
+      championTwo: '',
+      unitNum: 0
     }
 
     this.submitHandler = this.submitHandler.bind(this)
@@ -29,19 +31,24 @@ class TitleForm extends React.Component {
 
   // }
 
-  submitHandler = () => {
-    console.log(this.state.championOne)
+  submitHandler = event => {
+    event.preventDefault()
+    // console.log(this.state.championOne)
+    addPlayer(this.state.championOne)
+      // .then(data => console.log('added to db?: ', data))
   }
 
   handleChampionOne = event => {
     this.setState({
-      championOne: event.target.value
+      championOne: event.target.value,
+      // championOneUnitNum: 1 //work around db seeds...for now...
     })
   }
 
   handleChampionTwo = event => {
     this.setState({
-      championTwo: event.target.value
+      championTwo: event.target.value,
+      // championTwoUnitNum: 2
     })
   }
 

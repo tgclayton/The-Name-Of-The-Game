@@ -1,8 +1,11 @@
 import request from 'superagent'
 
-export function addPlayers (names){
-  console.log('One: ' + names.championOne + ' Two: ' + names.championTwo);
+export function addPlayer(name){
+  // console.log('One: ' + names.championOne + ' Two: ' + names.championTwo);
   
-  return request.post('/players')
-    .send(names)
+  return request.post('/')
+    .send(name)
+    .then(res => {
+      return res.body
+    })
   }

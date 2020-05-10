@@ -184,14 +184,23 @@ padding: 10px;
 
 .game-header {
   text-align: center;
+  margin-top: 30px;
 }
 
 .game-container {
-
+  height: 500px;
 }
 
 .game {
   display: flex;
   flex-direction: row;
   margin: auto 10%;
+}
+
+.unitOne {
+  margin-top: 30px;
+}
+
+.unitTwo {
+  margin-top: 60px;
 }
