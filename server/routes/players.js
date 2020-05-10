@@ -14,8 +14,8 @@ router.get('/', (req, res) => {
 
 //POST /
 router.post('/', (req,res) => {
-  // let name = req.body.player_name 
-  let name = 'hard-coded' //works
+  let name = req.body.player_name 
+  // let name = 'hard-coded' //works
   console.log(req.body) //empty {}
   
   return db.addPlayer(name)

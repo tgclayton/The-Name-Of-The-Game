@@ -4,17 +4,20 @@ import { IonPhaser } from '@ion-phaser/react'
 import gameFile from '../components/game'  
 import Home from './Home'
 
+import GameHeader from './GameHeader'
+
 class PhaserGame extends Component {
 
     render() {
-    // const { initialize, game } = this.state
     return (
       <div>
-        <h1 style={{color:'blue'}}>IT WORKS</h1>
+        <GameHeader />
         <IonPhaser game={gameFile} initialize={true} />
       </div>
     )
   }
 }
+
+
 
 export default PhaserGame
