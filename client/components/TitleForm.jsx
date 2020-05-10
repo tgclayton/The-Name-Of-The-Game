@@ -1,9 +1,20 @@
 import React from 'react'
 import { Form } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
-import { addPlayers } from '../api'
 
 class TitleForm extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+      championOne: '',
+      championTwo: ''
+    }
+
+    this.submitHandler = this.submitHandler.bind(this)
+    this.handleChampionOne = this.handleChampionOne(this)
+    this.handleChampionTwo = this.handleChampionTwo(this)
+  }
 
   submitHandler = data => {
     console.log('form data:', data)
@@ -11,6 +22,22 @@ class TitleForm extends React.Component {
     // // addPlayers(this.state)
     // addPlayers(this.state.championOne)
     // // addPlayers(this.state.championTwo)
+    addPlayer('orange')
+      .then(data => console.log(data))
+      .then(champion => conosle.log('champions: ', champion))
+
+  }
+
+  handleChampionOne = event => {
+    this.setState({
+      championOne: event.target.value
+    })
+  }
+
+  handleChampionTwo = event => {
+    this.setState({
+      championTwo: event.target.value
+    })
   }
 
   render() {
@@ -24,7 +51,7 @@ class TitleForm extends React.Component {
               label='Champion One'
               placeholder='championOne'
               name='championOne'
-              onChange={event => this.setState({championOne: event.target.value })}
+              onChange={this.handleChampionOne}
             />
           </label>
           <label>Champion Two:
@@ -32,7 +59,7 @@ class TitleForm extends React.Component {
               label='Champion Two'
               placeholder='championTwo'
               name='championTwo'
-              onChange={event => this.setState({championTwo: event.target.value })}
+              onChange={this.handleChampionTwo}
             />
           </label>
           </div>
