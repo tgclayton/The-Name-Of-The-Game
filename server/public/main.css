@@ -2,10 +2,7 @@ body {
   margin: 0;
   /* border: 2px solid blue; alicia reference box */
   display: flex;
-  justify-content: flex-start;
-  background-image: url('castle.png');
-  background-repeat: no-repeat;
-  background-size: cover;
+  justify-content: center;
 }
 
 @font-face {
@@ -16,9 +13,9 @@ body {
 }
 
 .home {
-  /* background-image: url('castle.png'); */
-  /* background-repeat: no-repeat; */
-  /* background-size: cover; */
+  background-image: url('castle.png'); 
+  background-repeat: no-repeat; 
+  background-size: cover;
   display: flex;
   flex-direction: center;
   max-width: 100%;
