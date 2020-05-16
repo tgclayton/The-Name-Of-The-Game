@@ -19,25 +19,6 @@ export default {
   }
 }
 
-// const config = {
-//   type: Phaser.AUTO,
-//   width: 960,
-//   height: 720,
-//   physics: {
-//     default: 'arcade',
-//     arcade: {
-//       gravity: { y: 0 },
-//       debug: false
-//     }
-//   },
-//   scene: {
-//     preload: preload,
-//     create: create,
-//     update: update
-//   }
-// }
-
-var game
 var map
 var keyPressed
 var actors
