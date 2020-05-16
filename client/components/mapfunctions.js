@@ -1,93 +1,92 @@
-import mapData from '../../server/public/assets/maps/map.json'
-var names = ['Ulfrick','Gauward', 'Roland', 'Nieles', 'Harlaw', 'Albrecht', 'Giliam', 'Aethelwulf', 'Brand', 'Bjorn', 'Helmaer', 'Aenfin', 'Lambert', 'Ardulf', 'Lany', 'Elwic', 'Ebehrt', 'Edric', 'Piersym', 'Georguy', 'Peregrine', 'Grewill']
-var team1Name = 'team1'
-var team2Name = 'team2'
-var team1Units = ['scout', 'heavy', 'swordsman', 'scout', 'archer']
+import mapData from '../../server/public/assets/maps/finalmap.json'
+
+var names = ['Euvrouin', 'Simond', 'Parsival', 'Leofrick', 'Garret', 'Uthbert', 'Ulfrik', 'Gauward', 'Grim', 'Thorvald', 'Roland', 'Nieles', 'Berrick', 'Harlaw', 'Ralf', 'Albrecht', 'Giliam', 'Aethelwulf', 'Brand', 'Bjorn', 'Helmaer', 'Aenfin', 'Lambert', 'Ardulf', 'Lany', 'Elwic', 'Ebehrt', 'Edric', 'Piersym', 'Georguy', 'Peregrine', 'Grewill']
+
+var portraitSelect = {
+  swordsman: [1, 2, 3],
+  scout: [1, 2, 3],
+  spearman: [1, 2, 3],
+  heavy: [1, 2, 3]
+}
+
+var team1Name = 'hardOne' // equal the name of champion
+var team2Name = 'hardTwo' // equal the name of 2nd champion
+// var team1Name = 'team1' // equal the name of champion
+// var team2Name = 'team2' // equal the name of 2nd champion
+var team1Units = ['swordsman', 'heavy', 'swordsman', 'scout', 'spearman']
 var team2Units = ['scout', 'scout', 'swordsman', 'spearman', 'heavy']
 const actors = [{ name: team1Name, units: [] }, { name: team2Name, units: [] }]
+
+export function nameFinder1 () {
+  // request.get('/api/v1/players')
+  // .then(res => {
+  //  return team1Name = res.body.player[0].playerOne
+  // })
+  return 'team2'
+}
+
+export function nameFinder2 () {
+  // request.get('/api/v1/players')
+  // .then(res => {
+  //   team2Name = res.body.player[0].playerTwo
+  //   return team2Name
+  // })
+  return 'team1'
+}
+
 export const classes = {
   scout: {
     // range: checkMelee(),
-    damage: 1,
+    damage: 10,
     class: 'scout',
-    teamName: null,
     name: 'Scout',
     sprite: 'scout',
-    idx: null,
-    actions: 6,
-    dead: false,
-    kills: 0,
-    woundsRemaining: 2
+    actions: 8,
+    health: 20
   },
   archer: {
-    damage: 1,
+    damage: 10,
     class: 'archer',
-    teamName: null,
     name: 'Archer',
     sprite: 'archer',
-    idx: null,
-    actions: 6,
-    dead: false,
-    kills: 0,
-    woundsRemaining: 1,
+    actions: 5,
+    health: 10,
     ammo: 5
   },
   spearman: {
-    damage: 1,
+    damage: 10,
     class: 'spearman',
-    teamName: null,
     name: 'Lancer',
     sprite: 'spear',
-    idx: null,
-    actions: 4,
-    dead: false,
-    kills: 0,
-    woundsRemaining: 3
+    actions: 6,
+    health: 30
   },
   heavy: {
-    damage: 3,
+    damage: 30,
     class: 'heavy',
-    teamName: null,
     name: 'Sentinel',
     sprite: 'heavy',
-    idx: null,
-    actions: 2,
-    dead: false,
-    kills: 0,
-    woundsRemaining: 5
+    actions: 5,
+    health: 50
   },
   swordsman: {
-    damage: 2,
+    damage: 25,
     class: 'swordsman',
-    teamName: null,
     name: 'Swordsman',
     sprite: '2hand',
-    idx: null,
-    actions: 4,
-    dead: false,
-    kills: 0,
-    woundsRemaining: 3
+    actions: 6,
+    health: 40
   }
 }
 var teamSize = 5
-
-// function findObstacles (mapArr) {
-//   var newArr = mapData.layers[0].data.map((tile, idx) => {
-//     if (tile === 10) {
-//       mapArr[idx].occupied = true
-//       mapArr[idx].occupant = 'obstacle'
-//     }
-//     return tile
-//   })
-//   return newArr
-// }
 
 export function createMapArray () {
   var mapArr = mapData.layers[0].data.map(tile => {
     if (tile === 10) {
       return {
         occupied: true,
-        occupant: 'obstacle'
+        occupant: 'obstacle',
+        occupantTeam: null
       }
     } else {
       return {
@@ -112,24 +111,39 @@ export function addActorsToMapArr (actors, mapArr) {
   return map
 }
 
-export function createActors (a) {
+function getPortrait (type) {
+  let workingArr = portraitSelect[type]
+  let randomFloat = Math.random() * workingArr.length
+  let randomInt = Math.floor(randomFloat)
+  let numSelect = workingArr[randomInt]
+  portraitSelect[type] = portraitSelect[type].filter(num => num !== numSelect)
+  let portraitSrc = 'images/portraits/' + type + numSelect + '.png'
+  return portraitSrc
+}
+
+export function createActors (team1, team2) {
   var actorArr = actors
-  let idx = 140
-  let team1 = actorArr[0].name
-  let team2 = actorArr[1].name
+  let idx = 19
+  // let team1 = actorArr[0].name
+  // let team2 = actorArr[1].name
+  actorArr[0].name = team1
+  actorArr[1].name = team2
   let unit = []
   let current
   let ranName
   for (let i = 0; i < teamSize; i++) {
     current = team1Units[i]
     unit = JSON.parse(JSON.stringify(classes[current]))
-    // console.log('unit is:', unit)
     ranName = names[Math.floor(Math.random() * names.length)]
     names = names.filter(name => name !== ranName)
     unit.teamName = team1
     unit.sprite = 'r' + unit.sprite
     unit.name = `${ranName} the ${unit.name}`
-    unit.idx = idx + (i * 20)
+    idx = idx + 38
+    unit.idx = idx
+    unit.dead = false
+    unit.kills = []
+    unit.portrait = getPortrait(unit.class)
     actorArr[0].units.push(unit)
 
     current = team2Units[i]
@@ -139,26 +153,11 @@ export function createActors (a) {
     unit.teamName = team2
     unit.name = `${ranName} the ${unit.name}`
     unit.sprite = 'l' + unit.sprite
-    unit.idx = idx + (i * 20) + 19
+    unit.idx = idx + 18
+    unit.portrait = getPortrait(unit.class)
+    unit.dead = false
+    unit.kills = []
     actorArr[1].units.push(unit)
   }
-  // console.log('actors is:', actorArr)
   return actorArr
 }
-
-// var friend = 'warrior'
-// var foe = 'enemy'
-
-// function createActors () {
-
-//   actors.forEach(team => {
-//     for (let i=0; i < teamSize; i++) {
-//       let it = i + 1
-//       team.units.push({
-//         name: team.team+it,
-//         sprite: team.team,
-//         idx:
-//       })
-//     }
-//   })
-// }

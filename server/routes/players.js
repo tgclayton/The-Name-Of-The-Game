@@ -5,11 +5,19 @@ router.use(express.json())
 
 module.exports = router
 
+router.get('/players', (req, res) => {
+  db.getPlayers()
+    .then(player => {
+      res.json({
+        player
+      }) 
+    })
+})
 
-//POST /v1/focus
+//POST /players
 router.post('/players', (req, res) => {
-  console.log('players.js')
-  db.addPlayers(req.body)
+  // console.log('players.js')
+  db.addPlayer(req.body)
   .then(() => {
     res.status(201).send()
     })
@@ -18,22 +26,20 @@ router.post('/players', (req, res) => {
     })
 })
 
-
-
-// router.get('/', (req, res) => {
-//   return db.getFoods()
-//     .then(camelcaseKeys)
-//     .then(foods => res.status(200).json(foods))
-// })
-
-
-
-// server.get('/players', (req, res) => {
-//   db.getPlayers()
-//     .then(player => {
-//       res.json({
-//         player
-//       })
+// router.post('/', (req,res) => {
+//   // let name = req.body.player_name 
+//   let name = 'my gosh' //works
+//   console.log(req.body) //empty {}
+  
+//   return db.addPlayer(name)
+//     .then(() => {
+//       res.json({ player_name: name })
+//     })
+//     .catch(err => {
+//       res.status(500).send('DATABASE ERROR: ' + err.message)
 //     })
 // })
+
+
+
 

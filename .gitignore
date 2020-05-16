@@ -12,3 +12,10 @@ node_modules/
 # Build
 dist/
 /npm-debug.log
+
+#Map
+*undle.js
+*undle.js.map
+
+#Database
+*.sqlite3

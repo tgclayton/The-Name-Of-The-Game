@@ -8,7 +8,7 @@ server.use(express.json())
 server.use(express.static('public'))
 server.use(express.static(path.join(__dirname, './public')))
 
-// server.use('/api/v1', players)
+server.use('/api/v1', players)
 
 module.exports = server
 

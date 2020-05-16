@@ -1,56 +1,61 @@
 import React, { Component } from 'react'
 import Phaser from 'phaser'
 import { IonPhaser } from '@ion-phaser/react'
-import gameFile from '../components/game'  
+import gameFile from '../components/game'
 import Home from './Home'
-import { Link } from 'react-router-dom'
+import ChampionOne from './ChampionOne'
+import ChampionTwo from './ChampionTwo'
+import EndGame from './EndGame'
 
 class PhaserGame extends Component {
+  constructor (props) {
+    super(props)
 
-    render() {
+    this.state = {
+      winner: null,
+      gameFile: gameFile
+    }
+  }
+  info2 = React.createRef()
+
+  setWinner () {
+    this.setState({
+      winner: true
+    })
+  }
+
+  render () {
     // const { initialize, game } = this.state
+    // let endGame
+    // if (this.state.winner) {
+    //   console.log('set endgame to be component')
+    //   endGame = <EndGame/>
+    // }
     return (
       <div className="home">
-        <div className="gameBody">
 
-          <div className="gamePanel">
-            <h1 className="championName">Champion One</h1>
-            <div className="panelHorizontal"></div>
-            <h1 className="championUnit">Unit Name</h1>
-            <div className="panelHorizontal"></div>
-            <h1 className="championAction">Attack:</h1>
-            <h1 className="championAction">Health:</h1>
-            <h1 className="championAction">Actions:</h1>
-            <div className="panelHorizontal"></div>
-            {/* <h1 className="championAction">Ammo</h1> */}
-            <h1 className="endTurn">End Turn</h1>
-          </div>
- 
-
-      <div className="gameDiv">
-        <IonPhaser game={gameFile} initialize={true} />
-            <div className="endGameDiv">
-              <Link to='/report'><div className="endGameButton"><h1 className="endGameText">End Game</h1></div></Link>
+        {/* <div id = 'stupid-info-box3' style = {{ display: 'none' }} ref = {this.info2}>{this.info2.current}</div> */}
+        <div className="gameWhole">
+          <div className="gameBody">
+            <ChampionOne team1 = {this.props.team1} team2 = {this.props.team2}/>
+            <div>
+              <EndGame getBattleInfo = {this.props.getBattleInfo} />
+              <div className="gameDiv" id = "gameDiv">
+                <IonPhaser game={this.state.gameFile} initialize={true}/>
+                {/* <div id = 'win' className='hide-show' style = {{ display: 'none', position: 'absolute' }} ref = {this.winner} >{this.winner.current}</div> */}
+                <div className='endgame-display' ref ={this.winner}>
+                  {
+                    this.state.winner
+                      ? <EndGame winner={this.props.winner}/>
+                      : ''
+                  }
+                </div>
+              </div>
             </div>
-      </div>
-
-          <div className="gamePanel">
-            <h1 className="championName">Champion Two</h1>
-            <div className="panelHorizontal"></div>
-            <h1 className="championUnit">Unit Name</h1>
-            <div className="panelHorizontal"></div>
-            <h1 className="championAction">Attack:</h1>
-            <h1 className="championAction">Health:</h1>
-            <h1 className="championAction">Actions:</h1>
-            <div className="panelHorizontal"></div>
-            {/* <h1 className="championAction">Ammo</h1> */}
-            <h1 className="endTurn">End Turn</h1>
+            <ChampionTwo />
           </div>
-
         </div>
-        </div>
-
-
+      </div>
     )
   }
 }
