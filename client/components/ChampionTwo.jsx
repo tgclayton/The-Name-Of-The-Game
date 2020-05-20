@@ -2,11 +2,11 @@ import React from 'react'
 class ChampionTwo extends React.Component {
   render () {
     return (
-      <div className="gamePanel2">
-        <h1 className="championUnit">How to play:</h1>
-        <h2 className="championAction"> Use the WASD keys to move your player and attack your opponent. The first player to kill all of the oposition wins. Remember to press T when you've finished your turn.</h2>
-        <div className="panelHorizontal"></div>
-        <ul className="instructionsList">
+      <div className="gamePanel2 alagard-text">
+        <h1 className="championUnit alagard-text">How to play:</h1>
+        <h2 className="championAction alagard-text"> Use the WASD keys to move your player and attack your opponent. The first player to kill all of the oposition wins. Remember to press T when you've finished your turn.</h2>
+        <div className="panelHorizontal alagard-text"></div>
+        <ul className="instructionsList alagard-text">
           <li>W - move up</li>
           <li>A - move left</li>
           <li>S - move down</li>

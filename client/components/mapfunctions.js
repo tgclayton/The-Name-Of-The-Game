@@ -1,5 +1,5 @@
 import mapData from '../../server/public/assets/maps/finalmap.json'
-
+import { melee, spear } from './combatFunctions'
 var names = ['Euvrouin', 'Simond', 'Parsival', 'Leofrick', 'Garret', 'Uthbert', 'Ulfrik', 'Gauward', 'Grim', 'Thorvald', 'Roland', 'Nieles', 'Berrick', 'Harlaw', 'Ralf', 'Albrecht', 'Giliam', 'Aethelwulf', 'Brand', 'Bjorn', 'Helmaer', 'Aenfin', 'Lambert', 'Ardulf', 'Lany', 'Elwic', 'Ebehrt', 'Edric', 'Piersym', 'Georguy', 'Peregrine', 'Grewill']
 
 var portraitSelect = {
@@ -36,7 +36,6 @@ export function nameFinder2 () {
 
 export const classes = {
   scout: {
-    // range: checkMelee(),
     damage: 10,
     class: 'scout',
     name: 'Scout',
@@ -46,6 +45,7 @@ export const classes = {
   },
   archer: {
     damage: 10,
+
     class: 'archer',
     name: 'Archer',
     sprite: 'archer',
@@ -139,6 +139,10 @@ export function createActors (team1, team2) {
     unit.teamName = team1
     unit.sprite = 'r' + unit.sprite
     unit.name = `${ranName} the ${unit.name}`
+    unit.range = melee
+    if (unit.class === 'spearman') {
+      unit.range = spear
+    }
     idx = idx + 38
     unit.idx = idx
     unit.dead = false
@@ -150,6 +154,7 @@ export function createActors (team1, team2) {
     unit = JSON.parse(JSON.stringify(classes[current]))
     ranName = names[Math.floor(Math.random() * names.length)]
     names = names.filter(name => name !== ranName)
+    unit.range = melee
     unit.teamName = team2
     unit.name = `${ranName} the ${unit.name}`
     unit.sprite = 'l' + unit.sprite

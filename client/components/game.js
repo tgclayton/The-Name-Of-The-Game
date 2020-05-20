@@ -18,7 +18,8 @@ export default {
     update: update
   }
 }
-
+export var height = 16
+export var width = 19
 var map
 var keyPressed
 var actors
@@ -37,22 +38,13 @@ var champAttack
 var champHealth
 var champAction
 var info
-var restart = false
 var champPortrait
+var cycleIdx = 0
 // function getTeamNames(){
 
 // }
 
 function preload () {
-  if (restart) {
-    team1 = null
-    team2 = null
-    activeTeam = null
-    actors = null
-    map = null
-    restart = false
-  }
-  // setTimeout()
   team1 = document.getElementById('stupid-info-box1').innerText
   team2 = document.getElementById('stupid-info-box2').innerText
   // winInfo = document.getElementById('stupid-info-box3')
@@ -115,20 +107,20 @@ function create () {
   })
   cursor.setPosition(actors[0].units[0].x, actors[0].units[0].y)
   // cursor.setPosition(0, 0)
-  setIndex(cursor)
+  setTargetData(cursor)
   // console.log(actors)
 }
 
 function update () {
 }
 
-function getCoordsFromIndex (idx) {
+export function getCoordsFromIndex (idx) {
   var x = (idx % 19) * 48
   var y = (Math.floor(idx / 19)) * 48
   return [x, y]
 }
 
-function getIndexFromCoords (coords) {
+export function getIndexFromCoords (coords) {
   let x = coords[0] / 48
   let y = (coords[1] / 48) * 19
   let idx = x + y
@@ -237,6 +229,7 @@ function checkDead (target) {
     map[target.idx].occupied = false
     map[target.idx].occupant = null
     map[target.idx].occupantTeam = null
+    target.idx = null
     target.physObj.destroy()
     selectedUnit.kills.push(target.name)
     info.innerText = `${target.name} was brutally murdered`
@@ -250,9 +243,9 @@ function setfixedMovement (val, axis) {
   let dest = findDest(cursor.getData('idx'), val, axis)
   if (aMode) {
     inRange = false
-    let neighbours = findNeighbours(selectedUnit.idx)
-    console.log(neighbours)
-    neighbours.forEach(n => {
+    let tilesInRange = selectedUnit.range(selectedUnit.idx)
+    // console.log(tilesInRange)
+    tilesInRange.forEach(n => {
       if (n === dest) {
         inRange = true
       }
@@ -305,22 +298,21 @@ function setfixedMovement (val, axis) {
         newTarget.setData('notMoving', true)
       }, 300)
       // console.log('target is:', target)
-      setIndex(target)
+      setTargetData(target)
     })
   }
 }
 
-function setIndex (target) {
-  // console.log(target.x, target.y)
+function setXY (target) {
+  let targetObj = determineTargetType(target)
   let x
   let y
-  if (target !== cursor) {
-    x = target.physObj.x / 48
-    y = (target.physObj.y / 48) * 19
-  } else {
-    x = cursor.x / 48
-    y = (cursor.y / 48) * 19
-  }
+  x = targetObj.x / 48
+  y = (targetObj.y / 48) * 19
+  return [x, y]
+}
+
+function adjustForEdgeOverrun (x, y) {
   if (x > 18) {
     x = 18
   } else if (x < 0) {
@@ -331,26 +323,51 @@ function setIndex (target) {
   } else if (y < 0) {
     y = 0
   }
+  return [x, y]
+}
+
+function determineTargetType (target) {
+  if (target !== cursor) {
+    return target.physObj
+  } else {
+    return cursor
+  }
+}
+
+function clearPrevLocationInfo (target) {
+  map[target.idx].occupied = false
+  map[target.idx].occupant = null
+  map[target.idx].occupantTeam = null
+}
+
+function updateUnitInfo (target, x, y) {
+  champAction.innerText = `Actions: ${target.actions}`
+  if (target.actions < 1) {
+    target.status.setTexture('done')
+    info.innerText = 'Unit has run out of actions'
+    selectUnit()
+  }
+  target.idx = x + y
+  x = x * 48
+  y = (y / 19) * 48
+  target.x = x
+  target.y = y
+  map[target.idx].occupied = true
+  map[target.idx].occupant = target.name
+  map[target.idx].occupantTeam = target.teamName
+}
+
+function setTargetData (target) {
+  let xyArr = setXY(target)
+  xyArr = adjustForEdgeOverrun(xyArr[0], xyArr[1])
+  let x = xyArr[0]
+  let y = xyArr[1]
   if (target === cursor) {
     cursor.setData('idx', x + y)
+    checkTile()
   } else {
-    champAction.innerText = `Actions: ${target.actions}`
-    if (target.actions < 1) {
-      target.status.setTexture('done')
-      info.innerText = 'Unit has run out of actions'
-      selectUnit()
-    }
-    map[target.idx].occupied = false
-    map[target.idx].occupant = null
-    map[target.idx].occupantTeam = null
-    target.idx = x + y
-    x = x * 48
-    y = (y / 19) * 48
-    target.x = x
-    target.y = y
-    map[target.idx].occupied = true
-    map[target.idx].occupant = target.name
-    map[target.idx].occupantTeam = target.teamName
+    clearPrevLocationInfo(target)
+    updateUnitInfo(target, x, y)
   }
 }
 
@@ -358,7 +375,7 @@ function checkTile () {
   let idx = cursor.getData('idx')
   // let derCoords = getCoordsFromIndex(idx)
   // console.log('cursor coords are', cursor.x, cursor.y)
-  console.log('idx =', idx)
+  // console.log('idx =', idx)
   // console.log('derCoords:', derCoords)
   // console.log('index of derCoords:', getIndexFromCoords(derCoords))
   // console.log(' ')
@@ -372,8 +389,12 @@ function checkTile () {
     }
     let occupant = actors[teamIdx].units.filter(unit => unit.name === tile.occupant)
     setDataWindow(occupant[0])
+    if (tile.occupant === 'obstacle') {
+      info.innerText = 'Tile contains an obstacle'
+    }
   } else {
     info.innerText = 'Tile is empty'
+    setDataWindow()
   }
 }
 
@@ -414,25 +435,8 @@ function attackMode () {
     cursor.setTexture('bcursor')
     cursor.setPosition(selectedUnit.x, selectedUnit.y)
     targets.push(selectedUnit)
-    setIndex(cursor)
+    setTargetData(cursor)
   }
-}
-
-function findNeighbours (idx) {
-  let neighbours = []
-  let attackerCoords = getCoordsFromIndex(idx)
-  console.log(attackerCoords)
-  for (let i = 0; i < 9; i++) {
-    if (i !== 4) {
-      let itX = (Math.floor(i / 3) - 1) * 48
-      let itY = ((i % 3) - 1) * 48
-      let newX = (attackerCoords[0] + itX)
-      let newY = (attackerCoords[1] + itY)
-      let neighbourIdx = getIndexFromCoords([newX, newY])
-      if (newX >= 0 && newX <= 864 && newY >= 0 && newY < 720) { neighbours.push(neighbourIdx) }
-    }
-  }
-  return neighbours
 }
 
 function changeCursorColor (context) {
@@ -508,7 +512,7 @@ function setDataWindow (target) {
 function endTurn () {
   let enemy = actors[getIdxOfInactiveTeam()].units.find(unit => unit.dead === false)
   cursor.setPosition(enemy.x, enemy.y)
-  setIndex(cursor)
+  setTargetData(cursor)
   restoreActions()
   setStatus()
   if (activeTeam === team1) {
@@ -520,6 +524,24 @@ function endTurn () {
   champName.innerText = activeTeam
   let gameDiv = document.getElementById('gameDiv')
   gameDiv.classList.toggle('red-border')
+}
+
+function cycleTeam () {
+  let teamIdx = getIdxOfActiveTeam()
+  if (cycleIdx === 4) {
+    cycleIdx = 0
+  }
+  // console.log(idx)
+  let name = null
+  if (selectedUnit) {
+    name = selectedUnit.name
+    selectUnit()
+  }
+  let next = actors[teamIdx].units.find((unit, idx) => unit.actions > 0 && idx >= cycleIdx && unit.name !== name)
+  cycleIdx = actors[teamIdx].units.findIndex(unit => unit.name === next.name)
+  cursor.setPosition(next.x, next.y)
+  setTargetData(cursor)
+  selectUnit()
 }
 
 function keyDown (e) {
@@ -579,6 +601,12 @@ function keyDown (e) {
         break
       case 'n':
         console.log(actors)
+        break
+      case 'b':
+        cycleTeam()
+        break
+      case 'y':
+        console.log(selectedUnit)
         break
     }
   }

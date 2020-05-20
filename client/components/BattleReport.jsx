@@ -40,18 +40,18 @@ class BattleReport extends Component {
     }
 
     return (
-      <div className='home brMainContainer'>
-        <div className='brPanel'>
-          <div className='brPanelStroke'>
-            <div className='brTitle'>
+      <div className='home brMainContainer alagard-text'>
+        <div className='brPanel alagard-text'>
+          <div className='brPanelStroke alagard-text'>
+            <div className='brTitle alagard-text'>
               {titleText}
             </div>
-            <div className='brContentContainer'>
-              <div className='brPlayerBlock'>
-                <div className='brBlockPlayerName'>
+            <div className='brContentContainer alagard-text'>
+              <div className='brPlayerBlock alagard-text'>
+                <div className='brBlockPlayerName alagard-text'>
                   {resultCallout.playerOne}
                 </div>
-                <div className='brUnitContainer'>
+                <div className='brUnitContainer alagard-text'>
                   {this.state.unitsVictorious.map((unit, index) => {
                     return (
                       <div key={index}>
@@ -61,11 +61,11 @@ class BattleReport extends Component {
                   })}
                 </div>
               </div>
-              <div className='brPlayerBlock'>
-                <div className='brBlockPlayerName'>
+              <div className='brPlayerBlock alagard-text'>
+                <div className='brBlockPlayerName alagard-text'>
                   {resultCallout.playerTwo}
                 </div>
-                <div className='brUnitContainer'>
+                <div className='brUnitContainer alagard-text'>
                   {this.state.unitsDefeated.map((unit, index) => {
                     return (
                       <div key={index}>
@@ -76,9 +76,9 @@ class BattleReport extends Component {
                 </div>
               </div>
             </div>
-            <div className='brButtonBlock'>
+            <div className='brButtonBlock alagard-text'>
               <Link to='/' >
-                <button className='brButton'>New Game</button>
+                <button className='brButton alagard-text'>New Game</button>
               </Link>
             </div>
           </div>
