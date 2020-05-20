@@ -14,6 +14,6 @@ jobs:
       - uses: akhileshns/heroku-deploy@master
         with:
           heroku_api_key: ${{secrets.HEROKU_API_KEY}}
-          heroku_app_name: "the-name-of-the-game"
+          heroku_app_name: "trial-by-seven"
           heroku_email: "tgclayton1@gmail.com"
 
