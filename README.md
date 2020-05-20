@@ -1,6 +1,6 @@
 # Trial by Seven - A turn based tactical game
 
-# To Run:
+## To Run:
 Clone this repo
 npm install
 npm run dev
